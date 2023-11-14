@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Schedule)
 admin.site.register(Points)
+admin.site.register(Attendance)

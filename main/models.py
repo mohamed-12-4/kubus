@@ -13,6 +13,9 @@ class Schedule(models.Model):
     starting_point = models.CharField(max_length=50)
     arriving_point = models.CharField(max_length=50)
 
+class Attendance(models.Model):
+    time = models.DateTimeField(auto_now_add=True)
+    student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 class Points(models.Model):
     student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     value = models.IntegerField()
