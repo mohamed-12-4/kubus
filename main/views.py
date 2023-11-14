@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .form import *
 
 # Create your views here.
 def index(request):
@@ -26,3 +27,18 @@ def loginUser(request):
         else:
             messages.error(request, "Username Or password is not correct")
     return render(request, "main/login.html")
+
+def register_user(request):
+    form = UserRegister()
+
+    if request.method == 'POST':
+        form = UserRegister(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'An error occurred during registration')
+
+    return render(request, 'main/register.html', {'form': form})
