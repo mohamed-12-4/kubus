@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} Buses {% endblock %}
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Semester</th>
+            <th scope="col">Day</th>
+            <th scope="col">Departure</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">Starting Point</th>
+            <th scope="col">Arriving point</th>
+            <th scope="col">Arriving point</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trip in trips %}
+        <tr>
+            <th scope="row">{{ trip.semester }}</th>
+            <td>{{ trip.day }}</td>
+            <td>{{ trip.departure_time }}</td>
+            <td>{{ trip.arrival_time }}</td>
+            <td>{{ trip.starting_point }}</td>
+            <td>{{ trip.arriving_point }}</td>
+            <td>
+                <form action="{% url 'commit' trip.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Go Green</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

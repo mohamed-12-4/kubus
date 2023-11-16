@@ -14,12 +14,12 @@
 
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                        <a href="" class="nav-link text-dark">
+                        <a href="{% url 'home' %}" class="nav-link text-dark">
                             Me
                         </a>
                     </li>
                     <li>
-                        <a href="" class="nav-link text-dark">
+                        <a href="{% url 'community_index' %}" class="nav-link text-dark">
                             Community
                         </a>
                     </li>
@@ -36,7 +36,7 @@
             <div class="text-end">
                 <a href="{% url 'logout' %}" class="btn btn-outline-danger">logout</a>
                 <a href="{% url 'buses' %}" class="btn btn-primary" role="button">My trips</a>
-                <a href="" class="btn btn-primary" role="button">All Medications</a>
+                <a href="{% url 'commit' %}" class="btn btn-primary" role="button">Register For trips</a>
             </div>
             {% else %}
             <div class="text-end">

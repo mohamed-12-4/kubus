@@ -46,6 +46,7 @@ def register_user(request):
         form = UserRegister(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            _ = Points.objects.create(student=user, value=0)
             user.save()
             login(request, user)
             return redirect('home')
@@ -54,15 +55,29 @@ def register_user(request):
 
     return render(request, 'main/register.html', {'form': form})
 
+def commit_list(request):
+    trips = Schedule.objects.all()
+    return render(request, "main/commit_list.html", {"trips": trips})
+
+@login_required(login_url='login')
+def commit(request, bus_id):
+    if request.method == "POST":
+        _ = Schedule.objects.get(id=bus_id).students.add(request.user)
+        return redirect("buses")
+
 @api_view(['POST'])
 def attend_api(request):
     user = request.user
     _ = Attendance.objects.create(student=user)
-    return render(request, "main/attend.html")
+    p = Points.objects.get(student=user)
+    p.value += 1
+    p.save()
+    return render(request, "main/attend.html", {"points": p.value})
 
 @login_required(login_url='login')
 def attend(request):
     if request.method == "POST":
         user = request.user
         _ = Attendance.objects.create(student=user)
-        return render(request, "main/attend.html")
+        points = Points.objects.get(student=user).value
+        return render(request, "main/attend.html", {"points": points})
