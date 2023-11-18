@@ -13,3 +13,8 @@ def create_post(request):
                                  notes=notes)
         return redirect("community_index")
     return render(request, "community/add_post.html")
+
+@login_required(login_url='posts')
+def posts(request):
+    posts = Posts.objects.all()
+    return render(request, "community/view_posts.html", {"posts":posts})

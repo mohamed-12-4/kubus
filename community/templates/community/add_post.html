@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+{% extends "base_community.html" %}
 {% block title %} Add Post {% endblock %}
 {% block content %}
 <form action="{% url 'create_post' %}" method="post">
     {% csrf_token %}
     <div class="mb-3">
-        <label for="notes" class="form-label">Notes</label>
+        <label for="notes" class="form-label">Write what you think about being sustainable 🌍:</label>
         <textarea class="form-control" id="notes" rows="3" name="notes"></textarea>
     </div>
 
