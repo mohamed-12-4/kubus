@@ -5,7 +5,11 @@ from .form import *
 from .models import *
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
-
+import calendar
+from collections import Counter
+import json
+from rest_framework.response import Response
+from community.models import Posts
 # Create your views here.
 def index(request):
     return render(request, "main/index.html")
@@ -46,8 +50,10 @@ def register_user(request):
         form = UserRegister(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            _ = Points.objects.create(student=user, value=0)
             user.save()
+            p = Points.objects.create(student=user, value=0)
+            p.save()
+  
             login(request, user)
             return redirect('home')
         else:
@@ -62,22 +68,39 @@ def commit_list(request):
 @login_required(login_url='login')
 def commit(request, bus_id):
     if request.method == "POST":
-        _ = Schedule.objects.get(id=bus_id).students.add(request.user)
+        _= Schedule.objects.get(id=bus_id).students.add(request.user)
         return redirect("buses")
 
 @api_view(['POST'])
+@login_required(login_url="login")
 def attend_api(request):
     user = request.user
-    _ = Attendance.objects.create(student=user)
+    a = Attendance.objects.create(student=user)
     p = Points.objects.get(student=user)
     p.value += 1
     p.save()
-    return render(request, "main/attend.html", {"points": p.value})
+    a.save()
+    return redirect("user_profile")
 
 @login_required(login_url='login')
 def attend(request):
-    if request.method == "POST":
-        user = request.user
-        _ = Attendance.objects.create(student=user)
-        points = Points.objects.get(student=user).value
-        return render(request, "main/attend.html", {"points": points})
+    return render(request, "main/attend.html")
+    
+
+@api_view(["GET"])
+def attendance_list(request):
+    user = request.user
+
+    attendance = Attendance.objects.filter(student=user).all()
+
+    attendance_list = [str(a.time.date()) for a in attendance]
+    attendance_count = Counter(attendance_list)
+
+    return Response(json.dumps(attendance_count))
+
+def user_profile(request):
+    points = Points.objects.get(student=request.user).value
+    posts = Posts.objects.filter(author=request.user).all()
+
+    return render(request, "main/user_profile.html", {"points": points,
+                                                      "posts": posts})

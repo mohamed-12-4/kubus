@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<h1> Congrats!!!!!!! +1 points you have {{ points }} Points</h1>
+
+<form action="{% url 'attend-api' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-green">I am in :)</button>
+</form>
 {% endblock %}

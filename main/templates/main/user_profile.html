@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} User_profile {% endblock %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+<h1>You have {{points}} Points</h1>
+
+<h1>Recent Posts by me</h1>
+{% for post in posts %}
+<div class="posts_center d-flex justify-content-center">
+    <div class="card text-center" style="width: 18rem;">
+        <div class="card-header">
+            {{ post.author }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ post.notes }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            {{ post.created_at }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
