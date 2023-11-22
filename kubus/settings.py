@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
@@ -41,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "crispy_forms",
-    "crispy_bootstrap5",
+    'crispy_forms',
+    'crispy_bootstrap5',
     'rest_framework',
+    'ckeditor',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -143,8 +146,10 @@ MESSAGE_TAGS = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+#MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
 
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STATICFILES_DIRS = [

@@ -7,7 +7,7 @@ class User(AbstractUser):
 class Schedule(models.Model):
     students = models.ManyToManyField(User, related_name="students", blank=True)
     semester = models.CharField(max_length=25)
-    day = models.CharField(max_length=15)
+    day = models.CharField(max_length=50)
     departure_time = models.TimeField()
     arrival_time = models.TimeField()
     starting_point = models.CharField(max_length=50)

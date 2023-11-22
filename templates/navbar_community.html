@@ -37,6 +37,8 @@
                 <a href="{% url 'logout' %}" class="btn btn-outline-danger">logout</a>
                 <a href="{% url 'posts' %}" class="btn btn-primary" role="button">View Posts</a>
                 <a href="{% url 'create_post' %}" class="btn btn-primary" role="button">Add Posts</a>
+                <a href="{% url 'article_list' %}" class="btn btn-primary" role="button">View Articles</a>
+                <a href="{% url 'add_article' %}" class="btn btn-primary" role="button">Add Article</a>
             </div>
             {% else %}
             <div class="text-end">
