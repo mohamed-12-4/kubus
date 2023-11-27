@@ -13,6 +13,9 @@ class Schedule(models.Model):
     starting_point = models.CharField(max_length=50)
     arriving_point = models.CharField(max_length=50)
 
+    class Meta:
+        ordering = ['starting_point', 'arriving_point', 'departure_time']
+
 class Attendance(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

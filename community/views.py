@@ -37,5 +37,7 @@ def add_article(request):
         if form.is_valid:
             article = form.save(commit=False)
             article.author = request.user
+            article.save()
+            return redirect("article_list")
     form = ArticleForm()
     return render(request, "community/add_article.html", {"form": form})

@@ -29,9 +29,13 @@
     </div>
     <div class="px-3 py-2 border-bottom mb-3">
         <div class="container d-flex flex-wrap justify-content-center">
+<<<<<<< HEAD
             <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
             </form>
+=======
+            <p class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto bold-text"><strong>{% now "SHORT_DATETIME_FORMAT" %}</strong></p>
+>>>>>>> b85ac54 (//)
             {% if request.user.is_authenticated %}
             <div class="text-end">
                 <a href="{% url 'logout' %}" class="btn btn-outline-danger">logout</a>
